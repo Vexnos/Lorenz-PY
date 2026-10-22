@@ -11,35 +11,26 @@ project: Lorenz Cipher
 # ------------------------------------------------------------------------
 
 import json5
-from enum import Enum
 
 # ------------------------------------------------------------------------
 # Classes
 # ------------------------------------------------------------------------
-class Shift(Enum):
-    """ An Enum to determine the shift state of the Baudot Machine """
-    Off = 0
-    On = 1
-
 class BaudotMachine:
     """A Baudot Machine to convert plaintext into Baudot-Murray 5bit 
     binary according to ITA2.
 
     Attributes:
-        shift (Shift): The shift state of the machine
         ITA2_LETTERS (dict[str, str]): Code table for letters
         ITA2_FIGURES (dict[str, str]): Code table for figures
         LETTERS (str): Shift to letters
         FIGURES (str): Shift to figures
     """
-    shift: Shift
     ITA2_LETTERS: dict[str, str]
     ITA2_FIGURES: dict[str, str]
     LETTERS: str
     FIGURES: str
 
     def __init__(self) -> None:
-        self.shift = Shift.Off
         self.import_ITA2()
 
     # --------------------------------------------------------------------
