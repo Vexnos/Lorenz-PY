@@ -62,10 +62,10 @@ class BaudotMachine:
         self.FIGURES = contents["FIGURES"]
 
     # --------------------------------------------------------------------
-    # Reverse a Dictionary (required for Decoding)
+    # Reverse a Dictionary
     # --------------------------------------------------------------------
     def reverse_dict(self, table: dict) -> dict[str, str]:
-        """ Reverse a table for decoding """
+        """ Reverse a table """
         return {value: key for key, value in table.items()}
 
 # ------------------------------------------------------------------------
