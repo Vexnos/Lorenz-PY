@@ -1,5 +1,13 @@
+/*
+==========================
+   file: baudot_ITA2.json5
+project: Lorenz Cipher
+ author: Vexnos
+   date: 2026-10-23
+==========================
+*/
 {
-    ITA2: {
+    ITA2: { // Contains Letters and Figures
         "00011": ["A", "-"],
         "11001": ["B", "?"],
         "01110": ["C", ":"],
