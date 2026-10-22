@@ -59,11 +59,36 @@ class BaudotMachine:
         """ Reverse a table """
         return {value: key for key, value in table.items()}
 
+    # --------------------------------------------------------------------
+    # Encode
+    # --------------------------------------------------------------------
+    def encode(self, message) -> str:
+        result = []
+        letters_reversed = self.reverse_dict(self.ITA2_LETTERS)
+        figures_reversed = self.reverse_dict(self.ITA2_FIGURES)
+
+        for char in message:
+            if char in letters_reversed:
+                result.append(letters_reversed[char])
+            elif char in figures_reversed:
+                result.append(figures_reversed[char])
+            else:
+                print(
+                    f'WARNING: {char!r} is not supported and will be' 
+                    ' ignored.'
+                )
+
+        return ' '.join(result)
+
 # ------------------------------------------------------------------------
 # Functions
 # ------------------------------------------------------------------------
 def main() -> None:
     baudot = BaudotMachine()
+
+    message: str = input('Message: ').upper()
+
+    print(baudot.encode(message))
 
 # ------------------------------------------------------------------------
 # Main Routine
