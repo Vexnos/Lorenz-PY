@@ -17,6 +17,7 @@ from enum import Enum
 # Classes
 # ------------------------------------------------------------------------
 class Shift(Enum):
+    """ An Enum to determine the shift state of the Baudot Machine """
     Off = 0
     On = 1
 
