@@ -1,0 +1,80 @@
+"""
+======================
+   file: baudot.py
+project: Lorenz Cipher
+ author: Vexnos
+   date: 2026-10-23
+======================
+"""
+# ------------------------------------------------------------------------
+# Libraries
+# ------------------------------------------------------------------------
+
+import json5
+from enum import Enum
+
+# ------------------------------------------------------------------------
+# Classes
+# ------------------------------------------------------------------------
+class Shift(Enum):
+    Off = 0
+    On = 1
+
+class BaudotMachine:
+    """A Baudot Machine to convert plaintext into Baudot-Murray 5bit 
+    binary according to ITA2.
+
+    Attributes:
+        shift (Shift): The shift state of the machine
+        ITA2_LETTERS (dict[str, str]): Code table for letters
+        ITA2_FIGURES (dict[str, str]): Code table for figures
+        LETTERS (str): Shift to letters
+        FIGURES (str): Shift to figures
+    """
+    shift: Shift
+    ITA2_LETTERS: dict[str, str]
+    ITA2_FIGURES: dict[str, str]
+    LETTERS: str
+    FIGURES: str
+
+    def __init__(self) -> None:
+        self.shift = Shift.Off
+        self.import_ITA2()
+
+    # --------------------------------------------------------------------
+    # Import ITA2 Table from Json5
+    # --------------------------------------------------------------------
+    def import_ITA2(self) -> None:
+        """ Import ITA2 Code Tables """
+        with open('baudot_ITA2.json5', 'r') as file:
+            contents: dict = json5.load(file)
+
+        self.ITA2_LETTERS = {
+            key: value[0] for key, value in contents["ITA2"].items()
+        }
+
+        self.ITA2_FIGURES = {
+            key: value[1] for key, value in contents["ITA2"].items()
+        }
+
+        self.LETTERS = contents["LETTERS"]
+        self.FIGURES = contents["FIGURES"]
+
+    # --------------------------------------------------------------------
+    # Reverse a Dictionary (required for Decoding)
+    # --------------------------------------------------------------------
+    def reverse_dict(self, table: dict) -> dict[str, str]:
+        """ Reverse a table for decoding """
+        return {value: key for key, value in table.items()}
+
+# ------------------------------------------------------------------------
+# Functions
+# ------------------------------------------------------------------------
+def main() -> None:
+    baudot = BaudotMachine()
+
+# ------------------------------------------------------------------------
+# Main Routine
+# ------------------------------------------------------------------------
+if __name__ == '__main__':
+    main()
