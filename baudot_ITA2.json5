@@ -34,7 +34,10 @@ project: Lorenz Cipher
         "11101": ["X", "/"],
         "10101": ["Y", "6"],
         "10001": ["Z", "+"],
+        "01000": ["", ""], // Carriage Return Not Implemented
         "00100": [" ", " "],
+        "00010": ["\n", "\n"],
+        "00000": ["", ""] // Null
     },
     LETTERS: "11111",
     FIGURES: "11011",
