@@ -37,5 +37,5 @@ project: Lorenz Cipher
         "00100": [" ", " "],
     },
     LETTERS: "11111",
-    FIGURES: "11011"
+    FIGURES: "11011",
 }
