@@ -62,6 +62,18 @@ class BaudotMachine:
     # Encode
     # --------------------------------------------------------------------
     def encode(self, message) -> str:
+        """Encode plaintext into 5bit Baudot 
+
+        Reverses ITA2 dictionaries for encoding, checks what dictionary a
+        char is in and sets the required shift state to access the 
+        equivalent 5bit representation.
+
+        Args:
+            message (str): Plaintext to encode
+
+        Returns:
+            str: Encoded message
+        """
         result = []
         letters_reversed = self.reverse_dict(self.ITA2_LETTERS)
         figures_reversed = self.reverse_dict(self.ITA2_FIGURES)
@@ -69,12 +81,15 @@ class BaudotMachine:
         current_shift = ShiftState.LETTERS
 
         for char in message:
+            # Char is in both dictionaries, no need to change shift state
             if char in letters_reversed and char in figures_reversed:
                 encoded_char = letters_reversed[char]
                 required_shift = current_shift
+            # Char is in letters
             elif char in letters_reversed:
                 encoded_char = letters_reversed[char]
                 required_shift = ShiftState.LETTERS
+            # Char is in figures
             elif char in figures_reversed:
                 encoded_char = figures_reversed[char]
                 required_shift = ShiftState.FIGURES
@@ -85,6 +100,7 @@ class BaudotMachine:
                 )
                 continue
 
+            # Check if shift needs to be inserted
             if current_shift != required_shift:
                 if required_shift == ShiftState.LETTERS:
                     result.append(ShiftState.LETTERS.value)
@@ -101,11 +117,22 @@ class BaudotMachine:
     # Decode
     # --------------------------------------------------------------------
     def decode(self, message: str) -> str:
+        """Decode 5bit Baudot into plaintext
+
+        Iterate over each bit segment and return equivalent char or figure.
+
+        Args:
+            message (str): 5bit Baudot Message
+
+        Returns:
+            str: Decoded plaintext
+        """
         result = []
 
         current_shift = ShiftState.LETTERS
 
         for bits in message.split():
+            # Check shift state
             if bits == ShiftState.LETTERS.value:
                 current_shift = ShiftState.LETTERS
                 continue
@@ -113,6 +140,7 @@ class BaudotMachine:
                 current_shift = ShiftState.FIGURES
                 continue
 
+            # Decode char into plaintext
             if current_shift == ShiftState.LETTERS:
                 result.append(self.ITA2_LETTERS[bits])
             elif current_shift == ShiftState.FIGURES:
