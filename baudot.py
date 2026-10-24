@@ -74,7 +74,7 @@ class BaudotMachine:
         Returns:
             str: Encoded message
         """
-        result = []
+        result: list[str] = []
         letters_reversed = self.reverse_dict(self.ITA2_LETTERS)
         figures_reversed = self.reverse_dict(self.ITA2_FIGURES)
 
