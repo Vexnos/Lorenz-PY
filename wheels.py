@@ -25,7 +25,7 @@ class Wheel:
         cams: list[int] | None = None
     ) -> None:
         self.teeth = teeth
-        self.position = position
+        self.position = position % teeth
         self.cams = cams if cams is not None else self.generate_cams()
 
     def get_position(self) -> int:
