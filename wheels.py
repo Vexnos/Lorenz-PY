@@ -35,11 +35,10 @@ class Wheel:
         return self.cams
 
     def get_cam_position(self) -> int:
-        return self.cams[self.position]
+        return self.cams[(self.position % self.teeth)]
 
     def rotate(self, n: int = 1) -> None:
         self.position += (n % self.teeth)
-        print(f'{self.teeth} | {self.get_cam_position()}')
 
     def generate_cams(self) -> list[int]:
         result: list[int] = []
@@ -50,7 +49,7 @@ class Wheel:
     def export_wheel(self) -> dict:
         return {
             'teeth': self.teeth,
-            'position': 0,
+            'position': self.position,
             'cams': self.cams
         }
         
