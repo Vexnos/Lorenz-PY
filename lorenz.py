@@ -131,11 +131,16 @@ def main() -> None:
     lorenz = SZ42(chi, psi, motor)
 
     ITA2_LETTERS, ITA2_FIGURES = baudot.import_ITA2()
+    decrypt: bool = input('Decrypt? (y/N): ').lower().startswith('y')
     message: str = input('Message: ').upper()
-    message = baudot.encode(ITA2_LETTERS, ITA2_FIGURES, message)
-    print(lorenz.xor_message(message))
-    # print(baudot.decode(ITA2_LETTERS, ITA2_FIGURES, message))
 
+    if decrypt:
+        message = lorenz.xor_message(message)
+        print(baudot.decode(ITA2_LETTERS, ITA2_FIGURES, message))
+    else:    
+        message = baudot.encode(ITA2_LETTERS, ITA2_FIGURES, message)
+        print(lorenz.xor_message(message))
+    
     # lorenz.export_wheels()
 
 # ------------------------------------------------------------------------
