@@ -76,9 +76,9 @@ class SZ42:
 
     def xor_bits(self, bits: str) -> str:
         bit = int(bits, 2)
-        self.rotate_wheels()
         xor_bit = self.gen_xor_bits()
         result = bit ^ xor_bit
+        self.rotate_wheels()
         return f'{result:05b}'
 
     def xor_message(self, message: str) -> str:
